@@ -32,7 +32,7 @@ const Navbar = () => {
           Contact
         </Link>
 
-        {isSeller && <button onClick={() => router.push('/seller')} className="text-xs border px-4 py-1.5 rounded-full">Seller Dashboard</button>}
+        {isSeller && <button onClick={() => router.push('/seller')} className="text-xs border px-4 hover:bg-slate-100 py-1.5 rounded-full">Seller Dashboard</button>}
 
       </div>
 
@@ -45,8 +45,8 @@ const Navbar = () => {
       </ul>
 
       <div className="flex items-center md:hidden gap-3">
-        {isSeller && <button onClick={() => router.push('/seller')} className="text-xs border px-4 py-1.5 rounded-full">Seller Dashboard</button>}
-        <button className="flex items-center gap-2 hover:text-gray-900 transition">
+        {isSeller && <button onClick={() => router.push('/seller')} className="text-xs border text-gray-500 hover:bg-slate-50 px-4 py-1.5 rounded-full">Seller Dashboard</button>}
+        <button className="flex items-center gap-2 hover:text-gray-900 hover:cursor-pointer transition">
           <Image src={assets.user_icon} alt="user icon" />
           Account
         </button>
