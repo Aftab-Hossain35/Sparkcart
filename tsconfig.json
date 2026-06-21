@@ -29,6 +29,6 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"
-, "src/assets/assets.js", "src/components/Navbar.jsx", "src/app/layout.js", "src/app/Loading.jsx", "src/app/page.jsx", "src/components/Banner.jsx", "src/components/FeaturedProduct..jsx", "src/components/Footer.jsx", "src/components/HeaderSlider.jsx", "src/components/HomeProducts.jsx", "src/components/OrderSummary.jsx", "src/components/ProductCard.jsx", "src/context/AppContext.jsx", "src/lib/authSeller.js", "src/app/add-address/page.jsx", "src/assets/productData.js", "src/app/seller/layout.jsx", "src/app/seller/page.jsx", "src/components/NewsLetter.jsx"  ],
+, "src/assets/assets.js", "src/components/Navbar.jsx", "src/app/layout.js", "src/app/Loading.jsx", "src/app/page.jsx", "src/components/Banner.jsx", "src/components/FeaturedProduct..jsx", "src/components/Footer.jsx", "src/components/HeaderSlider.jsx", "src/components/HomeProducts.jsx", "src/components/OrderSummary.jsx", "src/components/ProductCard.jsx", "src/context/AppContext.jsx", "src/lib/authSeller.js", "src/app/add-address/page.jsx", "src/assets/productData.js", "src/app/seller/layout.js", "src/app/seller/page.jsx", "src/components/NewsLetter.jsx"  ],
   "exclude": ["node_modules"]
 }

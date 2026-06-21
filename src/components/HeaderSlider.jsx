@@ -31,11 +31,11 @@ const HeaderSlider = () => {
     },
       {
       id: 4,
-      title: "Power Meets Elegance - Apple MacBook Pro is Here for you!",
+      title: "Next level Iphone 13 is here for you!",
       offer: "Exclusive Deal 40% Off",
       buttonText1: "Order Now",
       buttonText2: "Learn More",
-      imgSrc: assets.header_macbook_image,
+      imgSrc: assets.iphone_13_image,
     },
       {
       id: 5,
