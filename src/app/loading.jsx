@@ -1,4 +1,5 @@
 import React from 'react'
+import { Suspense } from 'react'
 
 const Loading = () => {
     return (
@@ -9,3 +10,4 @@ const Loading = () => {
 }
 
 export default Loading
+

@@ -24,7 +24,7 @@ const HeaderSlider = () => {
     {
       id: 3,
       title: "Power Meets Elegance - Apple MacBook Pro is Here for you!",
-      offer: "Exclusive Deal 40% Off",
+      offer: "Exclusive Deal 50% Off",
       buttonText1: "Order Now",
       buttonText2: "Learn More",
       imgSrc: assets.header_macbook_image,
