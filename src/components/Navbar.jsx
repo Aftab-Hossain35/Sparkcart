@@ -18,7 +18,7 @@ const Navbar = () => {
       initial={{ y: -50, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="sticky top-0 z-50 bg-linear-to-r from-sky-50 via-cyan-50 shadow-md shadow-sky-100/50 flex items-center justify-between px-6 md:px-16 lg:px-32 py-3.5 border-b border-sky-100/60 text-gray-700"
+      className="relative top-0 z-50 bg-linear-to-r from-sky-50 via-cyan-50 shadow-md shadow-sky-100/50 flex items-center justify-between px-6 md:px-16 lg:px-32 py-3.5 border-b border-sky-100/60 text-gray-700"
     >
       {/* Animated Brand Logo */}
       <motion.div 
