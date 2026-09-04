@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 let cached = global.mongoose;
+const MONGODB_URI = process.env.MONGODB_URI;
 
 if (!cached) {
   cached = (global).mongoose = { conn: null, promise: null };
@@ -16,7 +17,7 @@ async function connectDB() {
       bufferCommands: false,
     };
 
-    cached.promise = mongoose.connect(`${process.env.MONGODB_URI}/sparkcart`, opts).then((mongoose) => {
+    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
       return mongoose;
     });
   }

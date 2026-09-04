@@ -5,9 +5,8 @@ import {getAuth} from "@clerk/nextjs/server";
 
 export async function GET(request) {
   try {
-    const { userId } = getAuth(request);
-
     await connectDB();
+    const { userId } = getAuth(request);
     const user = await User.findById(userId);
 
     if (!user) {
@@ -18,4 +17,4 @@ export async function GET(request) {
   } catch (error) {
     return NextResponse.json({ success: false, message: error.message });
   }
-}
+} 
