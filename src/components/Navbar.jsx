@@ -18,7 +18,7 @@ const Navbar = () => {
       initial={{ y: -50, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="sticky top-0 z-50 bg-gradient-to-r from-sky-50 via-cyan-50 shadow-md shadow-sky-100/50 flex items-center justify-between px-6 md:px-16 lg:px-32 py-3.5 border-b border-sky-100/60 text-gray-700"
+      className="sticky top-0 z-50 bg-linear-to-r from-sky-50 via-cyan-50 shadow-md shadow-sky-100/50 flex items-center justify-between px-6 md:px-16 lg:px-32 py-3.5 border-b border-sky-100/60 text-gray-700"
     >
       {/* Animated Brand Logo */}
       <motion.div 
@@ -28,7 +28,7 @@ const Navbar = () => {
         onClick={() => router.push('/')}
       >
         <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight">
-          <span className="bg-gradient-to-r from-sky-400 to-indigo-600 bg-clip-text text-transparent text-4xl md:text-5xl">S</span>
+          <span className="bg-linear-to-r from-sky-400 to-indigo-600 bg-clip-text text-transparent text-4xl md:text-5xl">S</span>
           <span className="text-gray-900">parkcart</span>
         </h1>
       </motion.div>
@@ -44,7 +44,7 @@ const Navbar = () => {
           <motion.div key={index} whileHover={{ y: -2 }} transition={{ duration: 0.2 }}>
             <Link href={item.href} className="relative group text-gray-600 hover:text-sky-500 transition-colors">
               {item.name}
-              <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-gradient-to-r from-sky-400 to-indigo-500 transition-all duration-300 group-hover:w-full"></span>
+              <span className="absolute left-0 -bottom-1 w-0 h-0.5 bg-linear-to-r from-sky-400 to-indigo-500 transition-all duration-300 group-hover:w-full"></span>
             </Link>
           </motion.div>
         ))}
@@ -95,7 +95,7 @@ const Navbar = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={openSignIn} 
-            className="flex items-center gap-2 bg-gradient-to-r from-sky-500 to-indigo-600 text-white px-5 py-2 rounded-full text-sm font-medium shadow-md shadow-sky-500/20 hover:opacity-90 transition-colors"
+            className="flex items-center gap-2 bg-linear-to-r from-sky-500 to-indigo-600 text-white px-5 py-2 rounded-full text-sm font-medium shadow-md shadow-sky-500/20 hover:opacity-90 transition-colors"
           >
             <Image src={assets.user_icon} alt="user icon" className="invert brightness-0 w-4 h-4" />
             Account

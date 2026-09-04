@@ -68,7 +68,7 @@ const Cart = () => {
                             className="p-1 hover:bg-white rounded-md transition"
                             onClick={() => updateCartQuantity(product._id, cartItems[itemId] - 1)}
                           >
-                            <Image src={assets.decrease_arrow} alt="decrease" className="w-4 h-4" />
+                            -
                           </button>
                           <input 
                             onChange={e => updateCartQuantity(product._id, Number(e.target.value))} 
@@ -80,7 +80,7 @@ const Cart = () => {
                             className="p-1 hover:bg-white rounded-md transition"
                             onClick={() => addToCart(product._id)}
                           >
-                            <Image src={assets.increase_arrow} alt="increase" className="w-4 h-4" />
+                            +
                           </button>
                         </div>
                       </td>

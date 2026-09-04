@@ -2,7 +2,7 @@
 import { Inngest } from "inngest";
 import connectDB from "./db";
 import User from "@/models/user";
-import Order from "@/models/order";
+import Order from "@/models/Order";
 
 export const inngest = new Inngest({ id: "Sparkcart" });
 
