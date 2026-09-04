@@ -61,7 +61,7 @@ const Cart = () => {
                           </button>
                         </div>
                       </td>
-                      <td className="py-5 px-6 font-medium text-gray-700">${product.offerPrice}</td>
+                      <td className="py-5 px-6 font-medium text-gray-700">৳{product.offerPrice}</td>
                       <td className="py-5 px-6">
                         <div className="flex items-center gap-2 bg-gray-100 p-1 rounded-lg w-fit">
                           <button 
@@ -84,7 +84,7 @@ const Cart = () => {
                           </button>
                         </div>
                       </td>
-                      <td className="py-5 px-6 font-bold text-gray-900">${(product.offerPrice * cartItems[itemId]).toFixed(2)}</td>
+                      <td className="py-5 px-6 font-bold text-gray-900">৳{(product.offerPrice * cartItems[itemId]).toFixed(2)}</td>
                     </tr>
                   );
                 })}
