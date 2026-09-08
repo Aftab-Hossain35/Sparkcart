@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from "react";
 import { assets } from "@/assets/assets";
-import { ShoppingCart, Handbag, ShoppingBasket, House, Search, X } from 'lucide-react';
+import { ShoppingCart, Handbag, ShoppingBasket, House, Search, X,Trash } from 'lucide-react';
 import Link from "next/link";
 import { useAppContext } from "@/context/AppContext";
 import Image from "next/image";

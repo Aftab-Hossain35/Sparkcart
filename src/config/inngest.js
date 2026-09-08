@@ -7,6 +7,7 @@ import Order from "@/models/Order";
 export const inngest = new Inngest({ id: "Sparkcart" });
 
 export const UserCreation = inngest.createFunction(
+  
   {
     id: 'sync-user-from-clerk'
   },
@@ -21,12 +22,14 @@ export const UserCreation = inngest.createFunction(
     } = event.data;
 
     const userData = {
+      // clerkId: id,
       _id: id,
       email: email_addresses[0].email_address,
       name: first_name + ' ' + last_name,
-      imageUrl: image_url
+      imageUrl: image_url,
+      // cartItems: {},
     };
-
+    
     await connectDB();
     await User.create(userData);
   }
@@ -95,7 +98,6 @@ export const UserOrder = inngest.createFunction(
                 date: event.data.date
             }
         })
-
         await connectDB()
         await Order.insertMany(orders)
 

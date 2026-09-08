@@ -7,7 +7,16 @@ export async function GET(request) {
   try {
     await connectDB();
     const { userId } = getAuth(request);
+
+    console.log("CLERK ID:", userId);
+
+    const Users = await User.find({}).select("_id clerkId email name");
+
+    console.log("MONGODB USERS:", Users);
+
     const user = await User.findById(userId);
+
+    console.log("FOUND USER:", user);
 
     if (!user) {
       return NextResponse.json({ success: false, message: "User Not Found" });

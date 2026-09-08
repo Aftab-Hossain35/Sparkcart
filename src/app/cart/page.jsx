@@ -5,6 +5,14 @@ import OrderSummary from "@/components/OrderSummary";
 import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import { useAppContext } from "@/context/AppContext";
+import { Trash2 } from 'lucide-react';
+import { motion, AnimatePresence } from "framer-motion";
+
+const rowVariants = {
+  hidden: { opacity: 0, x: -16 },
+  show: { opacity: 1, x: 0, transition: { type: "spring", stiffness: 200, damping: 20 } },
+  exit: { opacity: 0, x: 16, height: 0, transition: { duration: 0.25 } },
+};
 
 const Cart = () => {
   const { products, router, cartItems, addToCart, updateCartQuantity, getCartCount } = useAppContext();
@@ -16,17 +24,25 @@ const Cart = () => {
         <div className="flex-1">
           <div className="flex items-center justify-between mb-8 border-b border-gray-200 pb-6">
             <p className="text-2xl md:text-3xl text-gray-800">
-              Your <span className="font-bold text-sky-600">Shopping Cart</span>
+              Your{" "}
+              <span className="font-bold bg-gradient-to-r from-violet-600 to-fuchsia-500 bg-clip-text text-transparent">
+                Shopping Cart
+              </span>
             </p>
-            <div className="px-4 py-1 bg-slate-100 text-sky-600 rounded-full font-medium">
+            <motion.div
+              key={getCartCount()}
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              transition={{ type: "spring", stiffness: 300, damping: 12 }}
+              className="px-4 py-1 bg-gradient-to-r from-blue-600 to-sky-500 text-white rounded-full font-medium shadow-md shadow-sky-500/30"
+            >
               {getCartCount()} Items
-            </div>
+            </motion.div>
           </div>
 
-          {/* Table Container - This adds the 'Card' look */}
           <div className="overflow-hidden rounded-2xl border border-gray-200 shadow-sm bg-white">
             <table className="min-w-full table-auto">
-              <thead className="bg-gray-50 border-b border-gray-200">
+              <thead className="bg-gradient-to-r from-blue-100 via-sky-100 to-cyan-100 border-b border-gray-200">
                 <tr className="text-gray-600 uppercase text-xs tracking-wider">
                   <th className="py-5 px-6 text-left font-semibold">Product</th>
                   <th className="py-5 px-6 text-left font-semibold">Price</th>
@@ -35,71 +51,94 @@ const Cart = () => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {Object.keys(cartItems).map((itemId) => {
-                  const product = products.find(product => product._id === itemId);
-                  if (!product || cartItems[itemId] <= 0) return null;
+                <AnimatePresence initial={false}>
+                  {Object.keys(cartItems).map((itemId) => {
+                    const product = products.find(product => product._id === itemId);
+                    if (!product || cartItems[itemId] <= 0) return null;
 
-                  return (
-                    <tr key={itemId} className="hover:bg-gray-50 transition-colors">
-                      <td className="py-5 px-6 flex items-center gap-4">
-                        <div className="rounded-lg overflow-hidden bg-gray-100 border border-gray-200 p-1">
-                          <Image
-                            src={product.image[0]}
-                            alt={product.name}
-                            className="w-16 h-16 object-cover"
-                            width={128}
-                            height={128}
-                          />
-                        </div>
-                        <div>
-                          <p className="text-sm font-medium text-gray-800">{product.name}</p>
-                          <button
-                            className="text-xs text-red-500 hover:text-red-700 mt-1 font-medium transition"
-                            onClick={() => updateCartQuantity(product._id, 0)}
-                          >
-                            Remove
-                          </button>
-                        </div>
-                      </td>
-                      <td className="py-5 px-6 font-medium text-gray-700">৳{product.offerPrice}</td>
-                      <td className="py-5 px-6">
-                        <div className="flex items-center gap-2 bg-gray-100 p-1 rounded-lg w-fit">
-                          <button 
-                            className="p-1 hover:bg-white rounded-md transition"
-                            onClick={() => updateCartQuantity(product._id, cartItems[itemId] - 1)}
-                          >
-                            -
-                          </button>
-                          <input 
-                            onChange={e => updateCartQuantity(product._id, Number(e.target.value))} 
-                            type="number" 
-                            value={cartItems[itemId]} 
-                            className="w-10 bg-transparent text-center font-bold text-gray-800 focus:outline-none"
-                          />
-                          <button 
-                            className="p-1 hover:bg-white rounded-md transition"
-                            onClick={() => addToCart(product._id)}
-                          >
-                            +
-                          </button>
-                        </div>
-                      </td>
-                      <td className="py-5 px-6 font-bold text-gray-900">৳{(product.offerPrice * cartItems[itemId]).toFixed(2)}</td>
-                    </tr>
-                  );
-                })}
+                    return (
+                      <motion.tr
+                        key={itemId}
+                        layout
+                        variants={rowVariants}
+                        initial="hidden"
+                        animate="show"
+                        exit="exit"
+                        className="hover:bg-gradient-to-r hover:from-violet-50/60 hover:to-transparent transition-colors"
+                      >
+                        <td className="py-5 px-6 flex items-center gap-4">
+                          <div className="rounded-xl overflow-hidden bg-gray-100 border border-gray-200 p-1">
+                            <Image
+                              src={product.image[0]}
+                              alt={product.name}
+                              className="w-16 h-16 object-cover"
+                              width={128}
+                              height={128}
+                            />
+                          </div>
+                          <div>
+                            <p className="text-sm font-medium text-gray-800">{product.name}</p>
+                            <motion.button
+                              whileHover={{ scale: 1.1, color: "#e11d48" }}
+                              whileTap={{ scale: 0.9 }}
+                              className="text-xs text-red-500 mt-1 font-medium transition cursor-pointer flex items-center gap-1"
+                              onClick={() => updateCartQuantity(product._id, 0)}
+                            >
+                              <Trash2 size={14} /> Remove
+                            </motion.button>
+                          </div>
+                        </td>
+                        <td className="py-5 px-6 font-medium text-gray-700">৳{product.offerPrice}</td>
+                        <td className="py-5 px-6">
+                          <div className="flex items-center gap-2 bg-gradient-to-r from-violet-100 to-fuchsia-100 p-1 rounded-full w-fit">
+                            <motion.button
+                              whileTap={{ scale: 0.85 }}
+                              className="w-7 h-7 flex items-center justify-center hover:bg-white rounded-full transition font-bold text-fuchsia-600 disabled:opacity-30"
+                              disabled={cartItems[itemId] <= 1}
+                              onClick={() => updateCartQuantity(product._id, cartItems[itemId] - 1)}
+                            >
+                              -
+                            </motion.button>
+                            <motion.span
+                              key={cartItems[itemId]}
+                              initial={{ scale: 1.3 }}
+                              animate={{ scale: 1 }}
+                              className="w-8 text-center font-bold text-gray-800"
+                            >
+                              {cartItems[itemId]}
+                            </motion.span>
+                            <motion.button
+                              whileTap={{ scale: 0.85 }}
+                              className="w-7 h-7 flex items-center justify-center hover:bg-white rounded-full transition font-bold text-fuchsia-600"
+                              onClick={() => addToCart(product._id)}
+                            >
+                              +
+                            </motion.button>
+                          </div>
+                        </td>
+                        <td className="py-5 px-6 font-bold text-gray-900">
+                          ৳{(product.offerPrice * cartItems[itemId]).toFixed(2)}
+                        </td>
+                      </motion.tr>
+                    );
+                  })}
+                </AnimatePresence>
               </tbody>
             </table>
           </div>
 
-          <button onClick={()=> router.push('/all-products')} className="group flex items-center mt-8 gap-2 text-gray-600 hover:text-orange-600 transition font-medium">
+          <motion.button
+            whileHover={{ x: -4 }}
+            onClick={() => router.push('/all-products')}
+            className="group flex items-center mt-8 gap-2 text-gray-600 hover:text-fuchsia-600 transition font-medium"
+          >
             <Image
               className="group-hover:-translate-x-1 transition"
               src={assets.arrow_right_icon_colored}
               alt="arrow"
             />
             Continue Shopping
-          </button>
+          </motion.button>
         </div>
         <OrderSummary />
       </div>

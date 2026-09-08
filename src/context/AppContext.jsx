@@ -84,25 +84,22 @@ export const AppContextProvider = (props) => {
 
     const updateCartQuantity = async (itemId, quantity) => {
 
-        if (quantity < 1) {
-            return;
-        }
-
         let cartData = structuredClone(cartItems);
+
         if (quantity === 0) {
             delete cartData[itemId];
         } else {
             cartData[itemId] = quantity;
         }
+
         setCartItems(cartData)
-          if(user){
+        if(user){
             try{
                 const token = await getToken()
-                await axios.post('/api/cart/update',{cartData},{headers:{Authorization: `Bearer ${token}`}})
-                toast.success("Cart updated")
+                await axios.post('/api/cart/update', { cartData }, { headers: { Authorization: `Bearer ${token}` } })
 
             } catch(error){
-                toast.error(error.massage)
+                toast.error(error.message)
             }
         }
     }
