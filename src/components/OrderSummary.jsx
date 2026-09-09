@@ -132,7 +132,7 @@ const OrderSummary = () => {
       transition={{ duration: 0.5 }}
       className="w-full md:w-96 rounded-2xl p-6 bg-white border border-gray-100 shadow-[0_20px_60px_-15px_rgba(124,92,252,0.25)]"
     >
-      <h2 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-violet-600 to-fuchsia-500 bg-clip-text text-transparent">
+      <h2 className="text-xl md:text-2xl font-bold bg-linear-to-r from-violet-600 to-fuchsia-500 bg-clip-text text-transparent">
         Order Summary
       </h2>
       <hr className="border-gray-200 my-5" />
@@ -144,7 +144,7 @@ const OrderSummary = () => {
           <div className="relative inline-block w-full text-sm">
             <motion.button
               whileTap={{ scale: 0.98 }}
-              className="peer w-full text-left px-4 pr-2 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-700 focus:outline-none focus:border-fuchsia-400 transition"
+              className="peer w-full text-left px-4 pr-2 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-700 focus:outline-none focus:border-blue-400 transition"
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             >
               <span>
@@ -173,7 +173,7 @@ const OrderSummary = () => {
                   {userAddresses.map((address, index) => (
                     <li
                       key={index}
-                      className="px-4 py-2.5 hover:bg-fuchsia-50 cursor-pointer transition"
+                      className="px-4 py-2.5 hover:bg-sky-50 cursor-pointer transition"
                       onClick={() => handleAddressSelect(address)}
                     >
                       {address.fullName}, {address.area}, {address.city}, {address.state}
@@ -181,7 +181,7 @@ const OrderSummary = () => {
                   ))}
                   <li
                     onClick={() => router.push("/add-address")}
-                    className="px-4 py-2.5 hover:bg-fuchsia-50 cursor-pointer text-center font-medium text-fuchsia-600"
+                    className="px-4 py-2.5 hover:bg-sky-50 cursor-pointer text-center font-medium text-sky-600"
                   >
                     + Add New Address
                   </li>
@@ -213,7 +213,7 @@ const OrderSummary = () => {
                   }`}
                 >
                   <div
-                    className={`flex items-center justify-center w-9 h-9 rounded-lg bg-gradient-to-br ${method.from} ${method.to} text-white shrink-0`}
+                    className={`flex items-center justify-center w-9 h-9 rounded-lg bg-linear-to-br ${method.from} ${method.to} text-white shrink-0`}
                   >
                     <Icon size={16} />
                   </div>
@@ -226,7 +226,7 @@ const OrderSummary = () => {
 
                   <div
                     className={`rounded-full border-2 flex items-center justify-center shrink-0 ${
-                      isSelected ? `border-transparent bg-gradient-to-br ${method.from} ${method.to}` : "border-gray-300"
+                      isSelected ? `border-transparent bg-linear-to-br ${method.from} ${method.to}` : "border-gray-300"
                     }`}
                     style={{ width: 18, height: 18 }}
                   >
@@ -260,7 +260,7 @@ const OrderSummary = () => {
             <motion.button
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.96 }}
-              className="bg-gradient-to-r from-violet-600 to-fuchsia-500 text-white px-9 py-2.5 rounded-full font-medium shadow-md shadow-fuchsia-500/30"
+              className="bg-linear-to-r from-blue-600 to-sky-500 text-white px-9 py-2.5 rounded-full font-medium shadow-md shadow-sky-500/30"
             >
               Apply
             </motion.button>
@@ -300,7 +300,7 @@ const OrderSummary = () => {
         whileHover={{ scale: 1.02, boxShadow: "0 12px 30px rgba(168,85,247,0.4)" }}
         whileTap={{ scale: 0.97 }}
         onClick={createOrder}
-        className="w-full bg-gradient-to-r from-violet-600 via-fuchsia-500 to-orange-500 text-white font-semibold py-3.5 mt-6 rounded-full cursor-pointer"
+        className="w-full bg-linear-to-r from-blue-600 via-sky-500 to-cyan-500 text-white font-semibold py-3.5 mt-6 rounded-full cursor-pointer"
       >
         Place Order
       </motion.button>

@@ -126,11 +126,12 @@ const AddProduct = () => {
               defaultValue={category}
             >
               <option value="Earphone">Earphone</option>
-              <option value="Headphone">Headphone</option>
+              <option value="Headphone">Electronics</option>
               <option value="Watch">Watch</option>
-              <option value="Smartphone">Smartphone</option>
-              <option value="Laptop">Laptop</option>
-              <option value="Camera">Camera</option>
+              <option value="Smartphone">Fashion</option>
+              <option value="Smartphone">food</option>
+              <option value="Smartphone">groceries</option>
+              <option value="Smartphone">Chocolate</option>
               <option value="Accessories">Other Accessories</option>
             </select>
           </div>
