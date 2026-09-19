@@ -125,7 +125,7 @@ const FeaturedProduct = () => {
                 className="flex items-center gap-1.5 bg-white text-gray-900 font-medium px-4 py-2 rounded-full mt-2 cursor-pointer shadow-lg"
               >
                 Buy now
-                <Image className="h-3 w-3" src={assets.redirect_icon} alt="Redirect Icon" />
+                {/* <Image className="h-3 w-3" src={assets.redirect_icon} alt="Redirect Icon" /> */}
               </motion.button>
             </motion.div>
           </motion.div>

@@ -122,7 +122,7 @@ const OrderSummary = () => {
     }
   }, [user])
 
-  const total = getCartAmount() + Math.floor(getCartAmount() * 0.02);
+  const total = getCartAmount() + Math.floor(getCartAmount() * 0.01);
 
   return (
     <motion.div
@@ -155,7 +155,7 @@ const OrderSummary = () => {
               <motion.svg
                 animate={{ rotate: isDropdownOpen ? 0 : -90 }}
                 className="w-5 h-5 inline float-right"
-                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#A21CAF"
+                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#0ea5e9"
               >
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
               </motion.svg>
@@ -275,20 +275,21 @@ const OrderSummary = () => {
             <p className="text-gray-800">{currency}{getCartAmount()}</p>
           </div>
           <div className="flex justify-between">
-            <p className="text-gray-600">Shipping Fee</p>
-            <p className="font-medium text-emerald-500">Free</p>
+            <p className="text-gray-600">Delivery Fee</p>
+            <p className="font-medium text-emerald-500">{currency}{Math.floor(getCartAmount() * 0.01)}</p>
           </div>
-          <div className="flex justify-between">
+          {/* <div className="flex justify-between">
             <p className="text-gray-600">Tax (2%)</p>
             <p className="font-medium text-gray-800">{currency}{Math.floor(getCartAmount() * 0.02)}</p>
-          </div>
+          </div> */}
           <div className="flex justify-between text-lg md:text-xl font-bold border-t border-dashed border-gray-200 pt-4">
             <p>Total</p>
             <motion.p
               key={total}
-              initial={{ scale: 1.15, color: "#A21CAF" }}
-              animate={{ scale: 1, color: "#111827" }}
+              initial={{ scale: 1.15}}
+              animate={{ scale: 1}}
               transition={{ duration: 0.3 }}
+              className="bg-linear-to-r from-blue-600 to-sky-500 bg-clip-text text-transparent"
             >
               {currency}{total}
             </motion.p>
@@ -297,7 +298,7 @@ const OrderSummary = () => {
       </div>
 
       <motion.button
-        whileHover={{ scale: 1.02, boxShadow: "0 12px 30px rgba(168,85,247,0.4)" }}
+        whileHover={{ scale: 1.02, boxShadow: "0 3px 12px #0ea5e9" }}
         whileTap={{ scale: 0.97 }}
         onClick={createOrder}
         className="w-full bg-linear-to-r from-blue-600 via-sky-500 to-cyan-500 text-white font-semibold py-3.5 mt-6 rounded-full cursor-pointer"

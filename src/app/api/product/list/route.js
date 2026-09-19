@@ -3,7 +3,7 @@ import  connectDB from "@/config/db";
 import Product from "@/models/product";
 
 
-export async function GET(request) {
+export async function GET() {
     try {
         await connectDB()
 

@@ -22,8 +22,9 @@ const ProductCard = ({ product, index = 0 }) => {
       transition={{ duration: 0.45, ease: "easeOut" }}
       whileHover={{ y: -8 }}
       onClick={() => {
-        router.push("/product/" + product._id);
-        scrollTo(0, 0);
+      router.push("/product/" + product._id);
+      scrollTo(0, 0);
+
       }}
       className="group relative flex flex-col items-start gap-1 max-w-55 p-2 w-full cursor-pointer rounded-xl bg-white border border-gray-100 shadow-sm hover:shadow transition-shadow"
     >
@@ -83,12 +84,12 @@ const ProductCard = ({ product, index = 0 }) => {
           className={`text-lg font-bold bg-linear-to-r ${accent} bg-clip-text text-transparent`}
         >
           {currency}
-          {product.offerPrice}
+          {product.price}
         </p>
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className={`max-sm:hidden px-4 py-1.5 text-white rounded-full text-xs font-medium bg-linear-to-r ${accent} shadow-sm`}
+          className={`max-sm:hidden px-4 py-1.5 text-white rounded-full text-xs font-medium bg-linear-to-r ${accent} shadow-sm cursor-pointer`}
         >
           Buy now
         </motion.button>

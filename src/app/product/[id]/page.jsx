@@ -158,7 +158,11 @@ const Product = () => {
                                 ৳{productData.price}
                             </span>
                             <span className="text-xs font-semibold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full">
+                                {productData.offerPrice !== productData.price && (
+                                <>
                                 {Math.round(100 - (productData.offerPrice / productData.price) * 100)}% off
+                                </>
+                                )}
                             </span>
                         </motion.p>
 

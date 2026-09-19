@@ -102,7 +102,7 @@ const AddAddress = () => {
                             variants={field}
                             whileFocus={{ scale: 1.01 }}
                             className={`${inputClass} resize-none`}
-                            rows={4}
+                            rows={2}
                             placeholder="Address (Area and Street)"
                             onChange={(e) => setAddress({ ...address, area: e.target.value })}
                             value={address.area}
