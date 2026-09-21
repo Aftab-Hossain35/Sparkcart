@@ -7,7 +7,6 @@ import React, {
 } from "react";
 
 import { assets } from "@/assets/assets";
-
 import Image from "next/image";
 
 import {
@@ -28,6 +27,10 @@ import {
 } from "framer-motion";
 
 
+// ============================================================
+// SLIDER DATA
+// ============================================================
+
 const sliderData = [
     {
         id: 1,
@@ -40,8 +43,7 @@ const sliderData = [
         gradient:
             "from-violet-700 via-fuchsia-600 to-orange-400",
 
-        glow:
-            "bg-fuchsia-500",
+        glow: "bg-fuchsia-500",
 
         accent:
             "from-fuchsia-400 to-orange-300",
@@ -64,8 +66,7 @@ const sliderData = [
         gradient:
             "from-indigo-950 via-blue-700 to-cyan-400",
 
-        glow:
-            "bg-cyan-400",
+        glow: "bg-cyan-400",
 
         accent:
             "from-cyan-400 to-blue-300",
@@ -88,8 +89,7 @@ const sliderData = [
         gradient:
             "from-slate-950 via-purple-900 to-pink-500",
 
-        glow:
-            "bg-purple-500",
+        glow: "bg-purple-500",
 
         accent:
             "from-purple-400 to-pink-400",
@@ -112,8 +112,7 @@ const sliderData = [
         gradient:
             "from-rose-600 via-pink-500 to-amber-300",
 
-        glow:
-            "bg-rose-400",
+        glow: "bg-rose-400",
 
         accent:
             "from-pink-300 to-yellow-200",
@@ -136,8 +135,7 @@ const sliderData = [
         gradient:
             "from-emerald-950 via-teal-700 to-lime-400",
 
-        glow:
-            "bg-teal-400",
+        glow: "bg-teal-400",
 
         accent:
             "from-teal-300 to-lime-200",
@@ -150,6 +148,10 @@ const sliderData = [
     },
 ];
 
+
+// ============================================================
+// TEXT ANIMATION
+// ============================================================
 
 const textVariants = {
     enter: {
@@ -201,6 +203,10 @@ const childVariants = {
 };
 
 
+// ============================================================
+// COMPONENT
+// ============================================================
+
 const HeaderSlider = () => {
 
     const [[current, direction], setSlide] =
@@ -210,9 +216,9 @@ const HeaderSlider = () => {
         useState(false);
 
 
-    // ------------------------------------------
+    // ========================================================
     // MOUSE PARALLAX
-    // ------------------------------------------
+    // ========================================================
 
     const mouseX = useMotionValue(0);
     const mouseY = useMotionValue(0);
@@ -230,31 +236,36 @@ const HeaderSlider = () => {
     const imageX = useTransform(
         springX,
         [-500, 500],
-        [-15, 15]
+        [-12, 12]
     );
 
     const imageY = useTransform(
         springY,
         [-500, 500],
-        [-10, 10]
+        [-8, 8]
     );
 
 
     const handleMouseMove = (event) => {
+
+        // Avoid unnecessary parallax on touch devices
+        if (window.matchMedia("(pointer: coarse)").matches) {
+            return;
+        }
 
         const rect =
             event.currentTarget.getBoundingClientRect();
 
         mouseX.set(
             event.clientX -
-                rect.left -
-                rect.width / 2
+            rect.left -
+            rect.width / 2
         );
 
         mouseY.set(
             event.clientY -
-                rect.top -
-                rect.height / 2
+            rect.top -
+            rect.height / 2
         );
     };
 
@@ -265,9 +276,9 @@ const HeaderSlider = () => {
     };
 
 
-    // ------------------------------------------
-    // SLIDE
-    // ------------------------------------------
+    // ========================================================
+    // SLIDER
+    // ========================================================
 
     const paginate = useCallback(
         (newDirection) => {
@@ -275,9 +286,11 @@ const HeaderSlider = () => {
             setSlide(([prev]) => {
 
                 const next =
-                    (prev +
+                    (
+                        prev +
                         newDirection +
-                        sliderData.length) %
+                        sliderData.length
+                    ) %
                     sliderData.length;
 
                 return [
@@ -290,18 +303,19 @@ const HeaderSlider = () => {
     );
 
 
-    // ------------------------------------------
+    // ========================================================
     // AUTOPLAY
-    // ------------------------------------------
+    // ========================================================
 
     useEffect(() => {
 
         if (isPaused) return;
 
-        const interval = setInterval(
-            () => paginate(1),
-            5000
-        );
+        const interval =
+            setInterval(
+                () => paginate(1),
+                5000
+            );
 
         return () =>
             clearInterval(interval);
@@ -313,10 +327,21 @@ const HeaderSlider = () => {
         sliderData[current];
 
 
+    // ========================================================
+    // RETURN
+    // ========================================================
+
     return (
 
         <section
-            className="relative mt-6 w-full"
+            className="
+                relative
+                mt-4
+                w-full
+
+                sm:mt-5
+                lg:mt-6
+            "
             onMouseEnter={() =>
                 setIsPaused(true)
             }
@@ -326,26 +351,28 @@ const HeaderSlider = () => {
         >
 
             {/* ==================================================
-                HERO CONTAINER
+                HERO
             ================================================== */}
 
             <div
                 onMouseMove={handleMouseMove}
                 onMouseLeave={resetMouse}
+
                 className="
                     relative
                     mx-auto
-                    min-h-[520px]
                     w-full
                     overflow-hidden
-                    rounded-[32px]
-                    shadow-2xl
+
+                    rounded-2xl
+                    shadow-xl
+
+                    sm:rounded-3xl
+                    sm:shadow-2xl
+
+                    lg:rounded-[32px]
                 "
             >
-
-                {/* ==================================================
-                    SLIDE
-                ================================================== */}
 
                 <AnimatePresence
                     initial={false}
@@ -361,9 +388,9 @@ const HeaderSlider = () => {
                             opacity: 0,
                             x:
                                 direction >= 0
-                                    ? 100
-                                    : -100,
-                            scale: 1.03,
+                                    ? 80
+                                    : -80,
+                            scale: 1.02,
                         }}
 
                         animate={{
@@ -376,13 +403,13 @@ const HeaderSlider = () => {
                             opacity: 0,
                             x:
                                 direction >= 0
-                                    ? -100
-                                    : 100,
+                                    ? -80
+                                    : 80,
                             scale: 0.98,
                         }}
 
                         transition={{
-                            duration: 0.7,
+                            duration: 0.65,
                             ease: [
                                 0.22,
                                 1,
@@ -392,10 +419,19 @@ const HeaderSlider = () => {
                         }}
 
                         className={`
-                            absolute
-                            inset-0
+                            relative
+                            min-h-[680px]
+
                             bg-gradient-to-br
                             ${slide.gradient}
+
+                            sm:min-h-[650px]
+
+                            md:min-h-[560px]
+
+                            lg:min-h-[520px]
+
+                            xl:min-h-[540px]
                         `}
                     >
 
@@ -408,31 +444,27 @@ const HeaderSlider = () => {
                                 absolute
                                 -left-24
                                 -top-24
-                                h-96
-                                w-96
+
+                                h-64
+                                w-64
+
                                 rounded-full
                                 ${slide.glow}
-                                opacity-30
-                                blur-[100px]
+
+                                opacity-25
+                                blur-[80px]
+
+                                sm:h-80
+                                sm:w-80
+
+                                lg:h-96
+                                lg:w-96
+                                lg:blur-[100px]
                             `}
                             animate={{
-                                x: [
-                                    0,
-                                    50,
-                                    0,
-                                ],
-
-                                y: [
-                                    0,
-                                    40,
-                                    0,
-                                ],
-
-                                scale: [
-                                    1,
-                                    1.2,
-                                    1,
-                                ],
+                                x: [0, 40, 0],
+                                y: [0, 30, 0],
+                                scale: [1, 1.15, 1],
                             }}
                             transition={{
                                 duration: 9,
@@ -442,30 +474,32 @@ const HeaderSlider = () => {
                         />
 
 
+                        {/* ==================================================
+                            SECOND GLOW
+                        ================================================== */}
+
                         <motion.div
                             className="
                                 absolute
                                 -bottom-32
-                                right-0
-                                h-96
-                                w-96
+                                -right-20
+
+                                h-72
+                                w-72
+
                                 rounded-full
-                                bg-white
-                                opacity-10
-                                blur-[110px]
+                                bg-white/10
+
+                                blur-[90px]
+
+                                sm:h-96
+                                sm:w-96
+
+                                lg:blur-[110px]
                             "
                             animate={{
-                                x: [
-                                    0,
-                                    -40,
-                                    0,
-                                ],
-
-                                y: [
-                                    0,
-                                    -30,
-                                    0,
-                                ],
+                                x: [0, -30, 0],
+                                y: [0, -25, 0],
                             }}
                             transition={{
                                 duration: 8,
@@ -490,15 +524,25 @@ const HeaderSlider = () => {
                             }}
                             className="
                                 absolute
+
                                 -right-32
-                                -top-32
-                                h-[420px]
-                                w-[420px]
+                                -top-28
+
+                                h-72
+                                w-72
+
                                 rounded-full
                                 border
                                 border-white/10
+
+                                sm:h-96
+                                sm:w-96
+
+                                lg:h-[420px]
+                                lg:w-[420px]
                             "
                         />
+
 
                         <motion.div
                             animate={{
@@ -511,46 +555,54 @@ const HeaderSlider = () => {
                             }}
                             className="
                                 absolute
-                                -right-20
-                                -top-20
-                                h-[300px]
-                                w-[300px]
+
+                                -right-16
+                                -top-16
+
+                                h-52
+                                w-52
+
                                 rounded-full
                                 border
                                 border-white/10
+
+                                sm:h-72
+                                sm:w-72
+
+                                lg:h-[300px]
+                                lg:w-[300px]
                             "
                         />
 
 
                         {/* ==================================================
-                            SMALL FLOATING PARTICLES
+                            FLOATING PARTICLES
                         ================================================== */}
 
-                        {[...Array(12)].map(
+                        {[...Array(10)].map(
                             (_, index) => (
 
                                 <motion.span
                                     key={index}
+
                                     className="
                                         absolute
                                         h-1
                                         w-1
                                         rounded-full
-                                        bg-white/60
+                                        bg-white/50
                                     "
 
                                     style={{
                                         left: `${
-                                            10 +
-                                            (index *
-                                                17) %
-                                                85
+                                            8 +
+                                            (index * 19) %
+                                                88
                                         }%`,
 
                                         top: `${
                                             10 +
-                                            (index *
-                                                23) %
+                                            (index * 23) %
                                                 75
                                         }%`,
                                     }}
@@ -558,19 +610,19 @@ const HeaderSlider = () => {
                                     animate={{
                                         y: [
                                             0,
-                                            -20,
+                                            -18,
                                             0,
                                         ],
 
                                         opacity: [
                                             0.2,
-                                            0.9,
+                                            0.8,
                                             0.2,
                                         ],
 
                                         scale: [
                                             1,
-                                            1.8,
+                                            1.7,
                                             1,
                                         ],
                                     }}
@@ -578,15 +630,13 @@ const HeaderSlider = () => {
                                     transition={{
                                         duration:
                                             2.5 +
-                                            index *
-                                                0.3,
+                                            index * 0.25,
 
                                         repeat:
                                             Infinity,
 
                                         delay:
-                                            index *
-                                            0.15,
+                                            index * 0.12,
                                     }}
                                 />
 
@@ -602,20 +652,29 @@ const HeaderSlider = () => {
                             className="
                                 relative
                                 z-10
+
                                 flex
-                                min-h-[520px]
+                                min-h-[680px]
                                 flex-col
-                                items-center
-                                justify-between
-                                gap-8
-                                px-6
-                                py-12
 
+                                px-5
+                                py-9
+
+                                sm:min-h-[650px]
+                                sm:px-8
+                                sm:py-10
+
+                                md:min-h-[560px]
                                 md:flex-row
-                                md:px-14
-                                md:py-10
+                                md:items-center
+                                md:gap-6
+                                md:px-10
 
-                                lg:px-20
+                                lg:min-h-[520px]
+                                lg:px-16
+                                lg:py-10
+
+                                xl:px-20
                             "
                         >
 
@@ -624,42 +683,50 @@ const HeaderSlider = () => {
                             ================================================== */}
 
                             <motion.div
-                                variants={
-                                    textVariants
-                                }
+                                variants={textVariants}
                                 initial="enter"
                                 animate="center"
                                 exit="exit"
+
                                 className="
                                     flex
                                     w-full
-                                    max-w-2xl
                                     flex-col
                                     justify-center
+                                    text-center
                                     text-white
 
                                     md:w-1/2
+                                    md:text-left
                                 "
                             >
 
-                                {/* OFFER BADGE */}
+                                {/* OFFER */}
 
                                 <motion.div
-                                    variants={
-                                        childVariants
-                                    }
+                                    variants={childVariants}
+
                                     className={`
-                                        mb-5
+                                        mx-auto
+                                        mb-4
                                         flex
                                         w-fit
                                         items-center
                                         gap-2
+
                                         rounded-full
                                         border
                                         ${slide.badge}
-                                        px-4
-                                        py-2
+
+                                        px-3
+                                        py-1.5
+
                                         backdrop-blur-md
+
+                                        sm:px-4
+                                        sm:py-2
+
+                                        md:mx-0
                                     `}
                                 >
 
@@ -674,87 +741,118 @@ const HeaderSlider = () => {
                                         }}
                                         transition={{
                                             duration: 2,
-                                            repeat:
-                                                Infinity,
+                                            repeat: Infinity,
                                         }}
                                     >
                                         <Zap
-                                            size={15}
-                                            className="text-yellow-200"
+                                            size={14}
+                                            className="
+                                                text-yellow-200
+                                                sm:h-4
+                                                sm:w-4
+                                            "
                                         />
                                     </motion.span>
 
-                                    <span className="
-                                        text-xs
-                                        font-bold
-                                        tracking-wide
-                                        sm:text-sm
-                                    ">
+                                    <span
+                                        className="
+                                            text-[10px]
+                                            font-bold
+                                            tracking-wide
+
+                                            sm:text-xs
+                                            md:text-sm
+                                        "
+                                    >
                                         {slide.offer}
                                     </span>
 
                                 </motion.div>
 
 
-                                {/* HEADING */}
+                                {/* ==================================================
+                                    HEADING
+                                ================================================== */}
 
                                 <motion.h1
-                                    variants={
-                                        childVariants
-                                    }
+                                    variants={childVariants}
+
                                     className="
+                                        mx-auto
                                         max-w-xl
-                                        text-4xl
+
+                                        text-3xl
                                         font-black
                                         leading-[1.08]
                                         tracking-tight
 
-                                        sm:text-5xl
+                                        xs:text-4xl
 
-                                        lg:text-[54px]
-                                        lg:leading-[1.05]
+                                        sm:text-[42px]
+
+                                        md:mx-0
+                                        md:text-[44px]
+
+                                        lg:text-[52px]
+
+                                        xl:text-[56px]
                                     "
                                 >
                                     {slide.title}
                                 </motion.h1>
 
 
-                                {/* DESCRIPTION */}
+                                {/* ==================================================
+                                    DESCRIPTION
+                                ================================================== */}
 
                                 <motion.p
-                                    variants={
-                                        childVariants
-                                    }
+                                    variants={childVariants}
+
                                     className="
-                                        mt-5
+                                        mx-auto
+                                        mt-4
                                         max-w-lg
-                                        text-sm
-                                        leading-6
+
+                                        text-xs
+                                        leading-5
                                         text-white/75
 
-                                        sm:text-base
+                                        sm:mt-5
+                                        sm:text-sm
+                                        sm:leading-6
+
+                                        md:mx-0
+                                        md:text-base
                                     "
                                 >
-                                    Discover premium
-                                    products, exclusive
-                                    deals and everything
-                                    you need — all in one
-                                    place at Sparkcart.
+                                    Discover premium products,
+                                    exclusive deals and everything
+                                    you need — all in one place at
+                                    Sparkcart.
                                 </motion.p>
 
 
-                                {/* BUTTONS */}
+                                {/* ==================================================
+                                    BUTTONS
+                                ================================================== */}
 
                                 <motion.div
-                                    variants={
-                                        childVariants
-                                    }
+                                    variants={childVariants}
+
                                     className="
-                                        mt-7
+                                        mt-6
+
                                         flex
-                                        flex-wrap
-                                        items-center
+                                        flex-col
+                                        items-stretch
                                         gap-3
+
+                                        sm:flex-row
+                                        sm:items-center
+                                        sm:justify-center
+
+                                        md:justify-start
                                     "
                                 >
 
@@ -762,33 +860,42 @@ const HeaderSlider = () => {
 
                                     <motion.button
                                         whileHover={{
-                                            scale: 1.06,
-                                            y: -3,
+                                            scale: 1.05,
+                                            y: -2,
                                         }}
+
                                         whileTap={{
-                                            scale: 0.95,
+                                            scale: 0.96,
                                         }}
+
                                         className="
                                             group
                                             relative
                                             flex
+                                            min-h-12
                                             items-center
+                                            justify-center
                                             gap-2
+
                                             overflow-hidden
                                             rounded-full
                                             bg-white
-                                            px-7
-                                            py-3.5
+
+                                            px-6
+                                            py-3
+
+                                            text-sm
                                             font-bold
                                             text-slate-900
+
                                             shadow-xl
                                             shadow-black/20
 
-                                            sm:px-9
+                                            sm:px-8
                                         "
                                     >
 
-                                        {/* shimmer */}
+                                        {/* SHIMMER */}
 
                                         <motion.span
                                             animate={{
@@ -797,18 +904,19 @@ const HeaderSlider = () => {
                                                     "150%",
                                                 ],
                                             }}
+
                                             transition={{
                                                 duration: 2,
-                                                repeat:
-                                                    Infinity,
-                                                repeatDelay:
-                                                    2,
+                                                repeat: Infinity,
+                                                repeatDelay: 2,
                                             }}
+
                                             className="
                                                 absolute
                                                 inset-y-0
                                                 w-10
                                                 rotate-12
+
                                                 bg-gradient-to-r
                                                 from-transparent
                                                 via-slate-200
@@ -843,33 +951,47 @@ const HeaderSlider = () => {
 
                                     <motion.button
                                         whileHover={{
-                                            x: 5,
+                                            x: 4,
                                         }}
+
                                         whileTap={{
-                                            scale: 0.95,
+                                            scale: 0.96,
                                         }}
+
                                         className="
                                             group
                                             flex
+                                            min-h-12
                                             items-center
+                                            justify-center
                                             gap-2
+
                                             rounded-full
                                             border
                                             border-white/20
                                             bg-white/10
+
                                             px-6
-                                            py-3.5
+                                            py-3
+
+                                            text-sm
                                             font-semibold
                                             text-white
+
                                             backdrop-blur-md
+
                                             transition
                                             hover:bg-white/20
+
+                                            sm:px-7
                                         "
                                     >
 
-                                        {
-                                            slide.buttonText2
-                                        }
+                                        <span>
+                                            {
+                                                slide.buttonText2
+                                            }
+                                        </span>
 
                                         <ChevronsRight
                                             size={18}
@@ -884,17 +1006,22 @@ const HeaderSlider = () => {
                                 </motion.div>
 
 
-                                {/* TRUST */}
+                                {/* ==================================================
+                                    TRUST
+                                ================================================== */}
 
                                 <motion.div
-                                    variants={
-                                        childVariants
-                                    }
+                                    variants={childVariants}
+
                                     className="
-                                        mt-7
+                                        mt-6
+
                                         flex
                                         items-center
+                                        justify-center
                                         gap-3
+
+                                        md:justify-start
                                     "
                                 >
 
@@ -904,25 +1031,30 @@ const HeaderSlider = () => {
                                             (item) => (
 
                                                 <motion.div
-                                                    key={
-                                                        item
-                                                    }
+                                                    key={item}
+
                                                     whileHover={{
                                                         y: -4,
                                                         zIndex: 10,
                                                     }}
+
                                                     className="
                                                         flex
                                                         h-8
                                                         w-8
+
                                                         items-center
                                                         justify-center
+
                                                         rounded-full
                                                         border-2
                                                         border-white/40
+
                                                         bg-white/20
+
                                                         text-[10px]
                                                         font-bold
+
                                                         backdrop-blur
                                                     "
                                                 >
@@ -934,17 +1066,17 @@ const HeaderSlider = () => {
 
                                     </div>
 
+
                                     <div>
 
-                                        <div className="flex items-center gap-1">
+                                        <div className="flex items-center gap-0.5">
 
                                             {[1, 2, 3, 4, 5].map(
                                                 (star) => (
 
                                                     <motion.span
-                                                        key={
-                                                            star
-                                                        }
+                                                        key={star}
+
                                                         animate={{
                                                             scale: [
                                                                 1,
@@ -952,18 +1084,21 @@ const HeaderSlider = () => {
                                                                 1,
                                                             ],
                                                         }}
+
                                                         transition={{
-                                                            duration:
-                                                                1.5,
+                                                            duration: 1.5,
                                                             delay:
                                                                 star *
                                                                 0.05,
                                                             repeat:
                                                                 Infinity,
                                                         }}
+
                                                         className="
-                                                            text-xs
+                                                            text-[10px]
                                                             text-yellow-300
+
+                                                            sm:text-xs
                                                         "
                                                     >
                                                         ★
@@ -974,13 +1109,16 @@ const HeaderSlider = () => {
 
                                         </div>
 
-                                        <p className="
-                                            text-[10px]
-                                            text-white/60
-                                        ">
-                                            Trusted by
-                                            thousands of
-                                            shoppers
+                                        <p
+                                            className="
+                                                text-[9px]
+                                                text-white/60
+
+                                                sm:text-[10px]
+                                            "
+                                        >
+                                            Trusted by thousands
+                                            of shoppers
                                         </p>
 
                                     </div>
@@ -997,14 +1135,19 @@ const HeaderSlider = () => {
                             <motion.div
                                 className="
                                     relative
+
+                                    mt-8
                                     flex
                                     w-full
                                     flex-1
+
                                     items-center
                                     justify-center
 
+                                    md:mt-0
                                     md:w-1/2
                                 "
+
                                 style={{
                                     x: imageX,
                                     y: imageY,
@@ -1017,30 +1160,42 @@ const HeaderSlider = () => {
                                     animate={{
                                         scale: [
                                             1,
-                                            1.15,
+                                            1.12,
                                             1,
                                         ],
+
                                         opacity: [
                                             0.2,
                                             0.4,
                                             0.2,
                                         ],
                                     }}
+
                                     transition={{
                                         duration: 4,
-                                        repeat:
-                                            Infinity,
+                                        repeat: Infinity,
                                     }}
+
                                     className={`
                                         absolute
-                                        h-64
-                                        w-64
-                                        rounded-full
-                                        ${slide.glow}
-                                        blur-[80px]
 
-                                        md:h-80
-                                        md:w-80
+                                        h-48
+                                        w-48
+
+                                        rounded-full
+
+                                        ${slide.glow}
+
+                                        blur-[60px]
+
+                                        sm:h-60
+                                        sm:w-60
+
+                                        md:h-72
+                                        md:w-72
+
+                                        lg:h-80
+                                        lg:w-80
                                     `}
                                 />
 
@@ -1049,27 +1204,33 @@ const HeaderSlider = () => {
 
                                 <motion.div
                                     animate={{
-                                        rotate: [
-                                            0,
-                                            360,
-                                        ],
+                                        rotate: 360,
                                     }}
+
                                     transition={{
                                         duration: 20,
-                                        repeat:
-                                            Infinity,
+                                        repeat: Infinity,
                                         ease: "linear",
                                     }}
+
                                     className="
                                         absolute
-                                        h-64
-                                        w-64
+
+                                        h-48
+                                        w-48
+
                                         rounded-full
                                         border
                                         border-white/10
 
-                                        md:h-80
-                                        md:w-80
+                                        sm:h-60
+                                        sm:w-60
+
+                                        md:h-72
+                                        md:w-72
+
+                                        lg:h-80
+                                        lg:w-80
                                     "
                                 />
 
@@ -1079,16 +1240,18 @@ const HeaderSlider = () => {
                                 <motion.div
                                     initial={{
                                         opacity: 0,
-                                        scale: 0.7,
+                                        scale: 0.75,
                                         rotate: -8,
                                         y: 30,
                                     }}
+
                                     animate={{
                                         opacity: 1,
                                         scale: 1,
                                         rotate: 0,
                                         y: 0,
                                     }}
+
                                     transition={{
                                         duration: 0.8,
                                         delay: 0.15,
@@ -1099,9 +1262,19 @@ const HeaderSlider = () => {
                                             1,
                                         ],
                                     }}
+
                                     className="
                                         relative
                                         z-10
+                                        w-full
+
+                                        max-w-[220px]
+
+                                        sm:max-w-[270px]
+
+                                        md:max-w-[300px]
+
+                                        lg:max-w-[360px]
                                     "
                                 >
 
@@ -1109,9 +1282,10 @@ const HeaderSlider = () => {
                                         animate={{
                                             y: [
                                                 0,
-                                                -15,
+                                                -12,
                                                 0,
                                             ],
+
                                             rotate: [
                                                 0,
                                                 1.5,
@@ -1120,10 +1294,10 @@ const HeaderSlider = () => {
                                                 0,
                                             ],
                                         }}
+
                                         transition={{
                                             duration: 5,
-                                            repeat:
-                                                Infinity,
+                                            repeat: Infinity,
                                             ease: "easeInOut",
                                         }}
                                     >
@@ -1132,19 +1306,20 @@ const HeaderSlider = () => {
                                             src={
                                                 slide.imgSrc
                                             }
+
                                             alt={
                                                 slide.title
                                             }
+
                                             priority
+
                                             className="
-                                                w-52
-                                                drop-shadow-[0_35px_35px_rgba(0,0,0,0.35)]
+                                                h-auto
+                                                w-full
 
-                                                sm:w-64
+                                                drop-shadow-[0_25px_25px_rgba(0,0,0,0.35)]
 
-                                                md:w-72
-
-                                                lg:w-[360px]
+                                                sm:drop-shadow-[0_30px_30px_rgba(0,0,0,0.35)]
                                             "
                                         />
 
@@ -1153,35 +1328,47 @@ const HeaderSlider = () => {
                                 </motion.div>
 
 
-                                {/* FLOATING SPARKLES */}
+                                {/* ==================================================
+                                    SPARKLES
+                                ================================================== */}
 
                                 <motion.div
                                     animate={{
                                         y: [
                                             0,
-                                            -15,
+                                            -12,
                                             0,
                                         ],
+
                                         rotate: [
                                             0,
                                             15,
                                             0,
                                         ],
                                     }}
+
                                     transition={{
                                         duration: 3,
-                                        repeat:
-                                            Infinity,
+                                        repeat: Infinity,
                                     }}
+
                                     className="
                                         absolute
-                                        left-[15%]
-                                        top-[10%]
+                                        left-[12%]
+                                        top-[5%]
+
                                         text-white/70
+
+                                        sm:left-[15%]
+                                        sm:top-[10%]
                                     "
                                 >
                                     <Sparkles
-                                        size={24}
+                                        size={20}
+                                        className="
+                                            sm:h-6
+                                            sm:w-6
+                                        "
                                     />
                                 </motion.div>
 
@@ -1193,26 +1380,37 @@ const HeaderSlider = () => {
                                             15,
                                             0,
                                         ],
+
                                         rotate: [
                                             0,
                                             -15,
                                             0,
                                         ],
                                     }}
+
                                     transition={{
                                         duration: 4,
-                                        repeat:
-                                            Infinity,
+                                        repeat: Infinity,
                                     }}
+
                                     className="
                                         absolute
-                                        bottom-[15%]
-                                        right-[12%]
+
+                                        bottom-[5%]
+                                        right-[10%]
+
                                         text-white/60
+
+                                        sm:bottom-[15%]
+                                        sm:right-[12%]
                                     "
                                 >
                                     <Sparkles
-                                        size={18}
+                                        size={16}
+                                        className="
+                                            sm:h-[18px]
+                                            sm:w-[18px]
+                                        "
                                     />
                                 </motion.div>
 
@@ -1226,7 +1424,7 @@ const HeaderSlider = () => {
 
 
                 {/* ==================================================
-                    SLIDE COUNTER
+                    MOBILE / DESKTOP SLIDE COUNTER
                 ================================================== */}
 
                 <motion.div
@@ -1234,30 +1432,42 @@ const HeaderSlider = () => {
                         opacity: 0,
                         y: 10,
                     }}
+
                     animate={{
                         opacity: 1,
                         y: 0,
                     }}
+
                     className="
                         absolute
-                        bottom-5
-                        right-5
+                        bottom-4
+                        right-4
                         z-30
+
                         hidden
+
                         items-center
                         gap-2
+
                         rounded-full
                         border
                         border-white/20
+
                         bg-black/10
+
                         px-3
                         py-1.5
+
                         text-xs
                         font-bold
                         text-white
+
                         backdrop-blur-md
 
                         sm:flex
+
+                        sm:bottom-5
+                        sm:right-5
                     "
                 >
 
@@ -1284,46 +1494,64 @@ const HeaderSlider = () => {
                     PREVIOUS / NEXT
                 ================================================== */}
 
-                <div className="
-                    absolute
-                    bottom-5
-                    left-5
-                    z-30
-                    hidden
-                    gap-2
+                <div
+                    className="
+                        absolute
+                        bottom-4
+                        left-4
+                        z-30
 
-                    sm:flex
-                ">
+                        hidden
+
+                        gap-2
+
+                        sm:flex
+                        sm:bottom-5
+                        sm:left-5
+                    "
+                >
 
                     <motion.button
                         whileHover={{
                             scale: 1.1,
                         }}
+
                         whileTap={{
                             scale: 0.9,
                         }}
+
                         onClick={() =>
                             paginate(-1)
                         }
+
+                        aria-label="Previous slide"
+
                         className="
                             flex
-                            h-10
-                            w-10
+                            h-9
+                            w-9
+
                             items-center
                             justify-center
+
                             rounded-full
                             border
                             border-white/20
+
                             bg-black/10
+
                             text-white
+
                             backdrop-blur-md
+
                             transition
                             hover:bg-white/20
+
+                            sm:h-10
+                            sm:w-10
                         "
                     >
-                        <ArrowLeft
-                            size={17}
-                        />
+                        <ArrowLeft size={17} />
                     </motion.button>
 
 
@@ -1331,31 +1559,43 @@ const HeaderSlider = () => {
                         whileHover={{
                             scale: 1.1,
                         }}
+
                         whileTap={{
                             scale: 0.9,
                         }}
+
                         onClick={() =>
                             paginate(1)
                         }
+
+                        aria-label="Next slide"
+
                         className="
                             flex
-                            h-10
-                            w-10
+                            h-9
+                            w-9
+
                             items-center
                             justify-center
+
                             rounded-full
                             border
                             border-white/20
+
                             bg-black/10
+
                             text-white
+
                             backdrop-blur-md
+
                             transition
                             hover:bg-white/20
+
+                            sm:h-10
+                            sm:w-10
                         "
                     >
-                        <ArrowRight
-                            size={17}
-                        />
+                        <ArrowRight size={17} />
                     </motion.button>
 
                 </div>
@@ -1367,13 +1607,19 @@ const HeaderSlider = () => {
                 PAGINATION
             ====================================================== */}
 
-            <div className="
-                mt-5
-                flex
-                items-center
-                justify-center
-                gap-2
-            ">
+            <div
+                className="
+                    mt-4
+
+                    flex
+                    items-center
+                    justify-center
+                    gap-1.5
+
+                    sm:mt-5
+                    sm:gap-2
+                "
+            >
 
                 {sliderData.map(
                     (item, index) => {
@@ -1385,6 +1631,7 @@ const HeaderSlider = () => {
 
                             <motion.button
                                 key={item.id}
+
                                 onClick={() =>
                                     setSlide([
                                         index,
@@ -1394,12 +1641,17 @@ const HeaderSlider = () => {
                                             : -1,
                                     ])
                                 }
+
                                 whileHover={{
                                     scale: 1.15,
                                 }}
+
                                 whileTap={{
                                     scale: 0.9,
                                 }}
+
+                                aria-label={`Go to slide ${index + 1}`}
+
                                 className="
                                     relative
                                     h-2
@@ -1407,10 +1659,11 @@ const HeaderSlider = () => {
                                     rounded-full
                                     bg-slate-200
                                 "
+
                                 animate={{
                                     width: active
-                                        ? 42
-                                        : 9,
+                                        ? 36
+                                        : 8,
                                 }}
                             >
 
@@ -1418,11 +1671,14 @@ const HeaderSlider = () => {
 
                                     <motion.div
                                         layoutId="activeSliderDot"
+
                                         className={`
                                             absolute
                                             inset-0
                                             rounded-full
+
                                             bg-gradient-to-r
+
                                             ${slide.accent}
                                         `}
                                     />
@@ -1443,34 +1699,46 @@ const HeaderSlider = () => {
                 AUTOPLAY PROGRESS
             ====================================================== */}
 
-            <div className="
-                mx-auto
-                mt-3
-                h-1
-                max-w-xs
-                overflow-hidden
-                rounded-full
-                bg-slate-200
-            ">
+            <div
+                className="
+                    mx-auto
+                    mt-2
+
+                    h-1
+                    max-w-[180px]
+
+                    overflow-hidden
+                    rounded-full
+                    bg-slate-200
+
+                    sm:max-w-xs
+                "
+            >
 
                 {!isPaused && (
 
                     <motion.div
                         key={current}
+
                         initial={{
                             width: "0%",
                         }}
+
                         animate={{
                             width: "100%",
                         }}
+
                         transition={{
                             duration: 5,
                             ease: "linear",
                         }}
+
                         className={`
                             h-full
                             rounded-full
+
                             bg-gradient-to-r
+
                             ${slide.accent}
                         `}
                     />
@@ -1482,5 +1750,6 @@ const HeaderSlider = () => {
         </section>
     );
 };
+
 
 export default HeaderSlider;

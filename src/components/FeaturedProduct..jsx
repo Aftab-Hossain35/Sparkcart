@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 const products = [
   {
     id: 1,
-    image: assets.girl_with_headphone_image,
+    image: "/Green_and_Black's_dark_chocolate_bar_2.jpg",
     title: "Unparalleled Sound",
     description: "Experience crystal-clear audio with premium headphones.",
     from: "from-violet-400",
@@ -20,7 +20,7 @@ const products = [
   },
   {
     id: 2,
-    image: assets.girl_with_earphone_image,
+    image: "/Green_and_Black's_dark_chocolate_bar_2.jpg",
     title: "Stay Connected",
     description: "Compact and stylish earphones for every occasion.",
     from: "from-pink-400",
@@ -30,7 +30,7 @@ const products = [
   },
   {
     id: 3,
-    image: assets.boy_with_laptop_image,
+    image: "/Green_and_Black's_dark_chocolate_bar_2.jpg",
     title: "Power in Every Pixel",
     description: "Shop the latest laptops for work, gaming, and more.",
     from: "from-amber-400",
@@ -102,6 +102,8 @@ const FeaturedProduct = () => {
             <div className={`absolute inset-0 bg-linear-to-br ${from} ${to} opacity-80`} />
 
             <Image
+              width={100}
+              height={100}
               src={image}
               alt={title}
               className="relative w-full h-auto object-cover mix-blend-luminosity opacity-90 group-hover:opacity-100 group-hover:scale-105 transition duration-500"

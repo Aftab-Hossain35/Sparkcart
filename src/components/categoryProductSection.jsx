@@ -240,6 +240,7 @@ const CategoryProductSections = () => {
                     flex-col
                     items-center
                     text-center
+                    justify-center
                   "
                 >
                   {/* Small badge */}
@@ -285,6 +286,7 @@ const CategoryProductSections = () => {
                       lg:text-2xl
                       xl:text-3xl
                       leading-tight
+                      text-center
                     `}
                   >
                     {category}
@@ -344,7 +346,7 @@ const CategoryProductSections = () => {
               }}
               className="
                 grid
-                w-[106%]
+                w-[108%]
 
                 grid-cols-2
                 gap-x-2
@@ -355,13 +357,13 @@ const CategoryProductSections = () => {
                 min-[480px]:gap-y-5
 
                 sm:grid-cols-3
-                sm:gap-4
+                sm:gap-2
 
                 md:grid-cols-4
-                md:gap-3
+                md:gap-2
 
                 lg:grid-cols-6
-                lg:gap-3
+                lg:gap-0
   
               "
             >
