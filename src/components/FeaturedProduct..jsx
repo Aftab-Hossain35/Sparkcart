@@ -38,6 +38,16 @@ const products = [
     glow: "shadow-[0_20px_60px_-15px_rgba(249,115,22,0.55)]",
     tilt: 3,
   },
+  {
+    id: 4,
+    image: "/Green_and_Black's_dark_chocolate_bar_2.jpg",
+    title: "Power in Every Pixel",
+    description: "Shop the latest laptops for work, gaming, and more.",
+    from: "from-amber-400",
+    to: "to-orange-400",
+    glow: "shadow-[0_20px_60px_-15px_rgba(249,115,22,0.55)]",
+    tilt: 3,
+  },
 ];
 
 const container = {

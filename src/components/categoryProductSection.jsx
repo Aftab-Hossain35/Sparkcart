@@ -205,13 +205,13 @@ const CategoryProductSections = () => {
             {/* ==================================================
                 Decorative background glow
             ================================================== */}
-            <div className="pointer-events-none absolute -top-10 left-1/2 -z-10 h-32 w-64 -translate-x-1/2 rounded-full bg-sky-200/10 blur-3xl" />
+            <div className="pointer-events-none absolute -top-20 left-1/2 -z-10 h-32 w-64 -translate-x-1/2 rounded-full bg-sky-200/10 blur-3xl" />
 
             {/* ==================================================
                 CATEGORY HEADER
             ================================================== */}
             <div className="mb-6 sm:mb-7 md:mb-9">
-              <div className="flex items-center justify-between gap-3">
+              <div className="flex items-center justify-between">
                 {/* Left decoration */}
                 <div className="hidden flex-1 items-center sm:flex">
                   <div className="h-px w-full bg-linear-to-r from-transparent via-slate-200 to-slate-200" />
@@ -236,11 +236,12 @@ const CategoryProductSections = () => {
                   className="
                     relative
                     flex
-                    max-w-[85%]
                     flex-col
                     items-center
                     text-center
                     justify-center
+                    w-full
+                    max-w-[100%]
                   "
                 >
                   {/* Small badge */}
@@ -286,7 +287,6 @@ const CategoryProductSections = () => {
                       lg:text-2xl
                       xl:text-3xl
                       leading-tight
-                      text-center
                     `}
                   >
                     {category}
@@ -336,6 +336,7 @@ const CategoryProductSections = () => {
             {/* ==================================================
                 PRODUCT GRID
             ================================================== */}
+
             <motion.div
               variants={container}
               initial="hidden"
@@ -345,25 +346,7 @@ const CategoryProductSections = () => {
                 amount: 0.08,
               }}
               className="
-                grid
-                w-[108%]
-
-                grid-cols-2
-                gap-x-2
-                gap-y-5
-
-                min-[480px]:grid-cols-2
-                min-[480px]:gap-x-3
-                min-[480px]:gap-y-5
-
-                sm:grid-cols-3
-                sm:gap-2
-
-                md:grid-cols-4
-                md:gap-2
-
-                lg:grid-cols-6
-                lg:gap-0
+                grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 flex-col items-start mt-4 w-[109%] origin-left
   
               "
             >
@@ -377,7 +360,7 @@ const CategoryProductSections = () => {
                   transition={{
                     duration: 75,
                   }}
-                  className="min-w-0"
+                  className="min-w-0 items-start flex"
                 >
                   <ProductCard product={product} />
                 </motion.div>
@@ -482,7 +465,6 @@ const CategoryProductSections = () => {
                       x: 4,
                     }}
                   >
-                    <ArrowRight size={16} />
                   </motion.span>
                 </motion.button>
               </motion.div>
